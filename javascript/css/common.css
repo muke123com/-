@@ -1,0 +1,22 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	box-sizing: border-box;
+}
+a{
+	text-decoration: none;
+}
+ul, li{
+	list-style: none;
+}
+.container-lazy ul li{
+	height: 300px;
+	background-color: #fff;
+	border-bottom: 1px solid #ddd;
+	transition: 1.5s;
+}
+
+.container-lazy ul li.active{
+	background-color: #F08B2F;
+}
