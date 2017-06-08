@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#canvas{
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body onload="">
+		<input type="file" id="imageUpload" onchange="getFiles()" />
+		<img src="" id="imageShow" style="display: none;" />
+		<img src="logo.png" id="waterImg" style="display: none;"  />
+		<img src="logo.png" id="finalImg"  />
+	</body>
+	<script>
+		function getFiles(){
+			var files = document.getElementById('imageUpload').files[0];
+			var fReader = new FileReader();
+			fReader.onload = function(e){
+				render(e.target.result);
+			}
+			fReader.readAsDataURL(files);
+		}
+		function render(path){
+			var logo = document.createElement("canvas");
+			var lctx = logo.getContext('2d');
+			var waterImg = new Image();
+			waterImg.onload = function(){
+				var lw = waterImg.width;
+				var lh = waterImg.height;
+				waterImg.width = 50;
+				waterImg.height = waterImg.width/lw*lh;
+				logo.width = waterImg.width;
+				logo.height = waterImg.height;
+				lctx.drawImage(waterImg, 0, 0, waterImg.width, waterImg.height);
+			}
+			waterImg.src = document.getElementById('waterImg').src;
+			var img = new Image();
+			img.onload = function(){
+				var canvas = document.createElement("canvas");
+				var ctx = canvas.getContext("2d");
+				canvas.width = img.width;
+				canvas.height = img.height;
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				ctx.drawImage(img, 0, 0);
+				ctx.drawImage(logo, 0, 0);
+				var src = canvas.toDataURL("image/png");
+				// document.querySelector("body").append(canvas);
+				document.getElementById('finalImg').src = src;
+			}
+			img.src = path;
+		}
+	</script>
+
+</html>
+
