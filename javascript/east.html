@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<style type="text/css">
+			canvas {
+				width: 100%;
+				background-color: #FDFDFD;
+				border-bottom: 1px solid #eee;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="canvas"></canvas>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+			var canvasW = 300;
+			var canvasH = 500;
+			var cr = 5; //小球半径
+
+			var center_x = canvasW / 2; //中心点x坐标
+			var center_y = canvasH / 2; //中心点y坐标
+			canvas.width = canvasW;
+			canvas.height = canvasH;
+
+			//动画1
+			function startAnimate1() {
+				//初始化
+				var anime; //动画变量
+				var gr = 60; //初始半径
+				var grv = 1; //伸缩速度
+				var baseRad = 0; //初始偏转角度
+				var radv = Math.PI * 0.01; //旋转角速度
+
+				function attackLv(n, r) {
+					var coordinates = [];
+					baseRad += radv;
+					var rad = Math.PI * 2 / n;
+					for(var i = 1; i <= n; i++) {
+						var x = center_x + r * Math.sin(rad * i + baseRad);
+						var y = center_y - r * Math.cos(rad * i + baseRad);
+						var co = new Circle(x, y);
+						co.update();
+					}
+				}
+
+				function loop() {
+					cancelAnimationFrame(anime);
+					clearCanvas();
+					anime = requestAnimFrame(loop);
+					//					gr += grv;
+					if(gr > 120 || gr < 60) {
+						grv = -grv;
+					}
+					attackLv(20, gr);
+				}
+				loop();
+			}
+
+			//动画2
+			function startAnimate2() {
+				//初始化
+				var anime; //动画变量
+				var gr = 80; //初始半径
+				var grv = 1; //伸缩速度
+				var baseRad = 0; //初始偏转角度
+				var radv = Math.PI * 0.001; //旋转角速度
+
+				function attackLv(n, r) {
+					var coordinates = [];
+					baseRad -= radv;
+					var rad = Math.PI * 2 / n;
+					for(var i = 1; i <= n; i++) {
+						var x = center_x + r * Math.sin(rad * i + baseRad);
+						var y = center_y - r * Math.cos(rad * i + baseRad);
+						var co = new Circle(x, y);
+						co.update();
+					}
+				}
+
+				function loop() {
+					cancelAnimationFrame(anime);
+					//					clearCanvas();
+					anime = requestAnimFrame(loop);
+					//					gr += grv;
+					if(gr > 140 || gr < 80) {
+						grv = -grv;
+					}
+					attackLv(30, gr);
+				}
+				loop();
+			}
+
+			//创建类
+			function Circle(x, y, vx, vy) {
+				this.x = x;
+				this.y = y;
+				this.vx = vx || 0;
+				this.vy = vy || 0;
+				this.r = cr;
+			}
+			Circle.prototype.draw = function() {
+				ctx.beginPath();
+				ctx.fillStyle = "#F08B2F";
+				ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+				ctx.fill();
+				ctx.closePath();
+			}
+			Circle.prototype.update = function() {
+				this.x += this.vx;
+				this.y += this.vy;
+				this.draw();
+			}
+			//重置画板
+			function clearCanvas() {
+				ctx.beginPath();
+				ctx.fillStyle = "#FDFDFD";
+				ctx.rect(0, 0, canvasW, canvasH);
+				ctx.fill();
+				ctx.closePath();
+			}
+
+			canvas.addEventListener("click", function() {
+				startAnimate1();
+				startAnimate2();
+			})
+		</script>
+	</body>
+
+</html>
