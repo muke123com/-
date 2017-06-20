@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var order = {
+				func1: function() {
+					alert(123);
+				},
+				func2: function() {
+					console.log(this);
+				}
+			}
+			var orderParent = {
+				func3: function() {
+					order.func2(); // 不影响order对象中的this
+				},
+				callback: order.func2  //  order对象中的this指向orderParent
+			}
+			orderParent.func3();
+			orderParent.callback();
+		</script>
+	</body>
+</html>
