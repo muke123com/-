@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function setCookie(s){
+				document.cookie = s;
+			}
+			function getCookie(){
+				var cookie = {};
+				var cookies = document.cookie;
+				var cookie_list = cookies.split(";");
+				cookie_list.forEach(function(item){
+					item = item.split("=");
+					cookie[item[0]] = item[1];
+				})
+				return cookie;
+			}
+			setCookie("loginCount=1;expires='+new Date()+';path=/';");
+			console.log(getCookie());
+		</script>
+	</body>
+</html>
