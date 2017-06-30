@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+	</head>
+	<body>
+		<div class="container">
+			<ul>
+				<li>
+					<input type="text" id="title" value="" />
+				</li>
+				<li>
+					<input type="text" id="content" value="" />
+				</li>
+			</ul>
+			<input type="button" id="button" value="通知" />
+		</div>
+		<script type="text/javascript">
+			var btn = document.getElementById("button");
+			btn.onclick = function(){
+				var title = document.getElementById("title").value;
+				var content = document.getElementById("content").value;
+				var icon = "images/brand-business-bg1.jpg";
+				showChromeNotice(title, content, icon);
+			}
+			
+			function showChromeNotice(title, content, icon){
+				var options = {
+					body: content,
+					icon: icon || "image_url"
+				}
+				var Notification = window.Notification || window.mozNotification || window.webkitNotification;
+				Notification.requestPermission(function(status){
+					if(Notification.permission != status){
+						Notification.permission = status;
+					}
+					if(status == "granted"){
+						var instance = new Notification(title, options);
+						instance.onshow = function(){
+							setTimeout(function(){
+								instance.close();
+							}, 5000)
+						}
+						instance.onclick = function(){
+							location.href = "http://www.baidu.com";
+						}
+					}
+				})
+				console.log(Notification);
+			}
+		</script>
+	</body>
+</html>
