@@ -87,14 +87,52 @@ function loop(){
 	checkZ();
 }
 
-function start(){
+function startBall(){
+	ctx.clearRect(0,0,canvas.width,canvas.height);
 	loop();
-	var t = setInterval(function(){
-		window.cancelAnimationFrame(anime);
-//		cp.rad = Math.random()*Math.PI*2;
-//		ep.rad = Math.random()*Math.PI*2;
-		loop();
-	}, 1000)
+//	var t = setInterval(function(){
+////		cp.rad = Math.random()*Math.PI*2;
+////		ep.rad = Math.random()*Math.PI*2;
+//	}, 1000)
 }
 
-start();
+/**
+ * picture
+ */
+var imgSrc = "images/brand-business-bg1.jpg";
+var imgData;
+function startPic(){
+	ctx.clearRect(0,0,canvas.width,canvas.height);
+	loadImg(imgSrc);
+	window.cancelAnimationFrame(anime);
+}
+
+function loadImg(imgSrc){
+	ctx.beginPath();
+	var img = new Image();
+	img.onload = function(){
+		ctx.drawImage(img, 0, 0);
+		imgData = ctx.getImageData(0,0,img.width,img.height);
+		console.log(imgData);
+		rePic();
+		ctx.putImageData(imgData, 150, 150);
+		console.log(imgData);
+	}
+	img.src = imgSrc;
+	ctx.closePath();
+}
+
+function rePic(){
+	var data = imgData.data;
+	console.log(data);
+	for(var i=0;i<data.length;i+=4){
+		data[i] = 255 - data[i];
+		data[i+1] = 255 - data[i+1];
+		data[i+2] = 255 - data[i+2];
+		data[i+3] = data[i+3];
+	}
+	imgData.data = data;
+}
+
+function picLoop(){
+}

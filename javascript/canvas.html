@@ -3,6 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="css/common.css" />
 		<style type="text/css">
@@ -62,42 +63,34 @@
 				}
 				loop();
 			}
-
-			//动画2
-			function startAnimate2() {
-				//初始化
-				var anime; //动画变量
-				var gr = 80; //初始半径
-				var grv = 1; //伸缩速度
-				var baseRad = 0; //初始偏转角度
-				var radv = Math.PI * 0.001; //旋转角速度
-
-				function attackLv(n, r) {
-					var coordinates = [];
-					baseRad -= radv;
-					var rad = Math.PI * 2 / n;
-					for(var i = 1; i <= n; i++) {
-						var x = center_x + r * Math.sin(rad * i + baseRad);
-						var y = center_y - r * Math.cos(rad * i + baseRad);
-						var co = new Circle(x, y);
-						co.update();
-					}
+			
+			function startAnimate2(){
+				var m = 11;
+				var n = 12;
+				var t = 0;
+				var x_pre = 150*(Math.sin(m*t)+1);
+				var y_pre = 150*(Math.sin(n*t)+1);
+				var x;
+				var y;
+				
+				function draw(x, y){
+					ctx.beginPath();
+					ctx.moveTo(x_pre, y_pre);
+					ctx.lineTo(x, y);
+					ctx.stroke();
+					ctx.closePath();
+					x_pre = x;
+					y_pre = y;
 				}
-
-				function loop() {
-					cancelAnimationFrame(anime);
-					//					clearCanvas();
-					anime = requestAnimFrame(loop);
-					//					gr += grv;
-					if(gr > 140 || gr < 80) {
-						grv = -grv;
-					}
-					attackLv(30, gr);
+				function animate(){
+					t += 0.01;
+					x = 150*(Math.sin(m*t)+1);
+					y = 150*(Math.sin(n*t)+1);
+					draw(x, y);
+					requestAnimFrame(animate);
 				}
-				loop();
+				animate();
 			}
-			
-			
 			
 			//创建类
 			function Circle(x, y, vx, vy) {
@@ -129,7 +122,6 @@
 			}
 
 			canvas.addEventListener("click", function() {
-				startAnimate1();
 				startAnimate2();
 			})
 		</script>

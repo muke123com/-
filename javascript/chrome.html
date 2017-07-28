@@ -4,51 +4,35 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		<style type="text/css">
+			.chrome_api{
+				margin-bottom: 20px;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="container">
-			<ul>
-				<li>
-					<input type="text" id="title" value="" />
-				</li>
-				<li>
-					<input type="text" id="content" value="" />
-				</li>
-			</ul>
-			<input type="button" id="button" value="通知" />
+			<div class="chrome_api">
+				<ul>
+					<li>
+						<input type="text" id="title" value="标题" />
+					</li>
+					<li>
+						<input type="text" id="content" value="内容" />
+					</li>
+				</ul>
+				<input type="button" id="notice" value="通知" />
+			</div>
+			<div class="chrome_api">
+				<div id="fullScreenContent">
+					全屏内容
+				</div>
+				<input type="button" id="fullscreen" value="全屏" />
+			</div>	
 		</div>
+		<script src="js/chrome.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			var btn = document.getElementById("button");
-			btn.onclick = function(){
-				var title = document.getElementById("title").value;
-				var content = document.getElementById("content").value;
-				var icon = "images/brand-business-bg1.jpg";
-				showChromeNotice(title, content, icon);
-			}
 			
-			function showChromeNotice(title, content, icon){
-				var options = {
-					body: content,
-					icon: icon || "image_url"
-				}
-				var Notification = window.Notification || window.mozNotification || window.webkitNotification;
-				Notification.requestPermission(function(status){
-					if(Notification.permission != status){
-						Notification.permission = status;
-					}
-					if(status == "granted"){
-						var instance = new Notification(title, options);
-						instance.onshow = function(){
-							setTimeout(function(){
-								instance.close();
-							}, 5000)
-						}
-						instance.onclick = function(){
-							location.href = "http://www.baidu.com";
-						}
-					}
-				})
-			}
 		</script>
 	</body>
 </html>

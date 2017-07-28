@@ -10,6 +10,9 @@ a{
 ul, li{
 	list-style: none;
 }
+.container{
+	padding: 15px;
+}
 .container-lazy ul li{
 	height: 300px;
 	background-color: #fff;
