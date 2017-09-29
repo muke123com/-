@@ -44,8 +44,10 @@ class Test():
         list = [1, 2, "aa", "cc", True];
         list[0] = "12a";
         del list[1];
+#         print(list);
+#         print(list[1:3]);
+        list.append("object");
         print(list);
-        print(list[1:3]);
         
         # tuple 元组（tuple）与列表类似，不同之处在于元组的元素不能修改
         tuple = (1, 2, "aa", "cc", False);
@@ -80,9 +82,28 @@ class Test():
         for x in it:
             print(x);
         pass;
+    
+    def testFile(self):
+        fo = open("ii.txt", "r+")
+        print ("文件名: ", fo.name)
+        
+        str = "6:www.runoob.com"
+        # 在文件末尾写入一行
+        fo.seek(0, 2)
+        line = fo.write( str )
+        
+        # 读取文件所有内容
+        fo.seek(0,0)
+        for index in range(6):
+            line = next(fo)
+            print ("文件行号 %d - %s" % (index, line))
+        
+        # 关闭文件
+        fo.close()
+        pass;
         
 test = Test();
-test.testIteration();
+test.testFile();
 
 def run():
     n = input("请输入n：");

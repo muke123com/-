@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<body>
+		<div class="">
+			<textarea id="addrReInput" name="" rows="" cols=""></textarea>
+			<a href="javascript:void(0);" id="addrResolutionId">点击</a>
+		</div>
+		<script src="js/address.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$("#addrResolutionId").click(function(){
+				var value = $("#addrReInput").val();
+				api.addrResolution(value);
+			})
+		</script>
+	</body>
+</html>
