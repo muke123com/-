@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+    <head>
+        <title>mms-play</title>
+        <meta charset="utf-8">
+		<style>
+			.canvas{
+				background-color: #fff;
+			}
+		</style>
+    </head>
+    <body>
+		<canvas class="canvas" id="canvas" ></canvas>
+		<script>
+			var canvas = document.getElementById("canvas");
+			canvas.width = 800;
+			canvas.height = 600;
+			var ctx = canvas.getContext("2d");
+			var img = new Image();
+			img.src = "images/31.jpg";
+			img.width = 300;
+			img.height = 300;
+			img.onload = function(){
+				ctx.drawImage(img, 0, 0, this.width, this.height);
+				var c = ctx.getImageData(0, 0, img.width, img.height);
+				console.log(c.data[0]);
+				for(var i=0;i<c.data.length;i++){
+					if(i%4 != 3){
+						var r = c.data[i];
+						c.data[i] = 255 - r;
+					}else{
+						c.data[i] = 150;
+					}
+					
+				}
+				console.log(c.data[0]);
+				ctx.putImageData(c,this.width,0,0,0,this.width,this.height);
+			}
+		</script>
+    </body>
+</html>

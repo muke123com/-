@@ -8,6 +8,7 @@
 
 	<body>
 		<script type="text/javascript">
+			//this最终指向的是调用它的对象
 			var order = {
 				func1: function() {
 					alert(123);
@@ -20,10 +21,10 @@
 				func3: function() {
 					order.func2(); // 不影响order对象中的this
 				},
-				callback: order.func2 //  order对象中的this指向orderParent
+				func4: order.func2 //  order对象中的this指向orderParent
 			}
 			orderParent.func3();
-			orderParent.callback();
+			orderParent.func4();
 
 			//
 		</script>
