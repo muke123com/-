@@ -24,6 +24,12 @@
 				ctx.drawImage(img, 0, 0, this.width, this.height);
 				var c = ctx.getImageData(0, 0, img.width, img.height);
 				console.log(c.data[0]);
+				c = bw(c);   
+				console.log(c.data[0]);
+				ctx.putImageData(c,this.width,0,0,0,this.width,this.height);
+			}
+			//颜色反转
+			function fz(c){
 				for(var i=0;i<c.data.length;i++){
 					if(i%4 != 3){
 						var r = c.data[i];
@@ -31,10 +37,26 @@
 					}else{
 						c.data[i] = 150;
 					}
-					
 				}
-				console.log(c.data[0]);
-				ctx.putImageData(c,this.width,0,0,0,this.width,this.height);
+				return c;
+			}
+			//黑白
+			function bw(c){
+				for(var i=0;i<c.data.length;i=i+4){
+					var R = c.data[i];
+					var G = c.data[i+1];
+					var B = c.data[i+2];
+					var bColor = calcColor(R,G,B);
+					c.data[i] = bColor;
+					c.data[i+1] = bColor;
+					c.data[i+2] = bColor;
+					c.data[i+3] = 250;
+				}
+				function calcColor(R,G,B){
+					return parseInt((R*30 + G*59 + B*11 ) / 100);
+				}
+				console.log(c.data);
+				return c;
 			}
 		</script>
     </body>
