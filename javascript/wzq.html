@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<style>
+			.canvas{
+				
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" class="canvas"></canvas>
+		<script>
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+			canvas.width = 600;
+			canvas.height = 600;
+			var l_width = 30;
+			var chess_piece_radius = 10;
+			var me = true;
+			drawChess();
+			canvas.onclick = function(e){
+				if(x < 0 || y < 0 || x > canvas.width || y > canvas.height){
+					return;
+				}
+				var x = e.offsetX;
+				var y = e.offsetY;
+				console.log(x, y);
+				var i = Math.round(x/l_width);
+				var j = Math.round(y/l_width);
+				drawChessPiece(i,j);
+			}
+			
+			function drawChess(){
+				ctx.strokeStyle = "#333";
+				for(var i=0;i<=canvas.width/l_width;i++){
+					ctx.beginPath();
+					ctx.moveTo(0, i*l_width);
+					ctx.lineTo(canvas.width, i*l_width);
+					ctx.stroke();
+					ctx.closePath();
+					ctx.beginPath();
+					ctx.moveTo(i*l_width, 0);
+					ctx.lineTo(i*l_width, canvas.height);
+					ctx.stroke();
+					ctx.closePath();
+				}
+			}
+			
+			function drawChessPiece(i,j){
+				var x = i*l_width;
+				var y = j*l_width;
+				if(me){
+					me = 0;
+					var grd = ctx.createRadialGradient(x,y,0,x,y,chess_piece_radius);
+					grd.addColorStop(0, "#eee");
+					grd.addColorStop(1, "#333");
+					ctx.fillStyle = grd;
+				}else{
+					me = 1;
+					var grd = ctx.createRadialGradient(x,y,2,x,y,chess_piece_radius);
+					grd.addColorStop(0, "#fff");
+					grd.addColorStop(1, "#eee");
+					ctx.fillStyle = grd;
+				}
+				ctx.beginPath();
+				ctx.arc(x, y, chess_piece_radius, 0, Math.PI*2);
+				ctx.fill();
+				ctx.closePath();
+			}
+		</script>
+	</body>
+</html>

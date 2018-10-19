@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>单例模式</title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<header class="top">
+			<a href="javascript:void(0)" id="btn1">按钮1</a>
+			<a href="javascript:void(0)" id="btn2">按钮2</a>
+			<a href="javascript:void(0)" id="btn3">按钮3</a>
+			<a href="javascript:void(0)" id="btn4">按钮4</a>
+			<a href="javascript:void(0)" id="btn5">按钮5</a>
+		</header>
+		<script type="text/javascript">
+			var header = {
+			    init: function () {
+					this.render();
+					this.bind();
+                },
+				render: function () {
+					var me = this;
+					me.btn1 = $("#btn1");
+					me.btn2 = $("#btn2");
+					me.btn3 = $("#btn3");
+					me.btn4 = $("#btn4");
+					me.btn5 = $("#btn5");
+                },
+                bind: function () {
+					var me = this;
+					me.btn1.click(function () {
+						me.top1();
+                    });
+					me.btn2.click(function () {
+						me.top2();
+                    });
+					me.btn3.click(function () {
+						me.top3();
+                    });
+					me.btn4.click(function () {
+						me.top4();
+                    });
+					me.btn5.click(function () {
+						me.top5();
+                    });
+                },
+				top1: function () {
+					alert(1);
+                },
+				top2: function () {
+					alert(2);
+                },
+				top3: function () {
+					alert(3);
+                },
+				top4: function () {
+					alert(4);
+                },
+				top5: function () {
+					alert(5);
+                }
+			};
+            header.init();
+		</script>
+	</body>
+</html>
