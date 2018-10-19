@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css3</title>
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="css/css3.css"/>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        <!-- 背景与边框 -->
+        <div class="m m-border1"></div>
+        <div class="m m-border2"></div>
+        <div class="m m-border3"></div>
+        <div class="m marching-ants"></div>
+
+        <div class="m m-bg1"></div>
+        <div class="m m-bg2"></div>
+        <div class="m m-bg3"></div>
+        <div class="m m-bg4"></div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width="100" height="100" fill-opacity=".25" style="display: none">
+        <rect x="50" width="50" height="50" />
+        <rect y="50" width="50" height="50" />
+    </svg>
+    <script>
+        var svg = $("svg").clone()[0].outerHTML;
+        var b64 = btoa(svg);
+        var url = 'data:image/svg+xml;base64,' + b64;
+        $(".m-bg4").css({
+            'background-image': 'url('+url+')'
+        })
+    </script>
+</body>
+</html>

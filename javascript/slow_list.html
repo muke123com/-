@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>滚动</title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <style>
+        ul{
+            position: relative;
+            margin: 10px;
+            width: 200px;
+            height: 50px;
+        }
+        ul li{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            transition: 0.5s;
+        }
+        ul li.a_show{
+            opacity: 1;
+            transform: translateY(5px);
+        }
+        ul li.a_hide{
+            opacity: 0;
+            transform: translateY(10px);
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li class="a_show">1111</li>
+        <li class="a_hide">2222</li>
+        <li class="a_hide">3333</li>
+        <li class="a_hide">4444</li>
+    </ul>
+    <script>    
+        function a_scroll() {
+            if(i-1 < 0){
+                i = 4
+            }
+            if(i > 3){
+                i = 0
+            }
+            $("ul li").eq(i-1).a_hide(500);
+            $("ul li").eq(i).a_show(500);
+            i++;
+        }
+        var i = 1;
+        var t = setInterval(function () {
+            a_scroll();
+        }, 2000)
+
+        $.fn.a_show = function () {
+            $(this).removeClass("a_hide")
+            $(this).addClass("a_show")
+        }
+        $.fn.a_hide = function () {
+            $(this).addClass("a_hide")
+            $(this).removeClass("a_show")
+        }
+    </script>
+</body>
+</html>
