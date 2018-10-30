@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VDOM</title>
+</head>
+<body>
+    <script>
+        //虚拟dom
+        var virtualDOM = {
+            type: 'ul',
+            props: {
+                'class': 'list'
+            },
+            children: [
+                {
+                    type: 'li',
+                    props: {
+                        'class': 'item'
+                    },
+                    children: ['Item 1']
+                }
+            ]
+        }
+
+    </script>
+</body>
+</html>
