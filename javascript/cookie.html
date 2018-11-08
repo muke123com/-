@@ -6,21 +6,31 @@
 	</head>
 	<body>
 		<script type="text/javascript">
-			function setCookie(s){
-				document.cookie = s;
-			}
-			function getCookie(){
-				var cookie = {};
-				var cookies = document.cookie;
-				var cookie_list = cookies.split(";");
-				cookie_list.forEach(function(item){
-					item = item.split("=");
-					cookie[item[0]] = item[1];
-				})
-				return cookie;
-			}
-			setCookie("loginCount=1;expires='+new Date()+';path=/';");
-			console.log(getCookie());
+			var domain = "qds.com";  //一级域名
+            //操作cookie
+            function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                var expires = "expires="+d.toUTCString();
+                var cookie_domain = "domain=" + domain;
+                document.cookie = cname + "=" + cvalue + "; " + expires + "; " + cookie_domain;
+            }
+            function getCookie(key){
+                var getCookie = document.cookie.replace(/[ ]/g,"");
+                var arrCookie = getCookie.split(";")
+                var tips;
+                for(var i=0;i<arrCookie.length;i++){
+                    var arr=arrCookie[i].split("=");
+                    if(key==arr[0]){
+                        tips=arr[1];
+                        break;
+                    }
+                }
+                return tips;
+            };
+            function clearCookie(name) {
+                setCookie(name, "", -1);
+            }
 		</script>
 	</body>
 </html>
